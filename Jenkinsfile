@@ -31,15 +31,6 @@ pipeline {
       }
     }   
 
-    stage('Kubernetes deployment - dev') {
-      steps {
-        withKubeConfig([credentialsId: "kubeconfig"]) {
-          sh "sed -i 's#replace#an6eel/test:${GIT_COMMIT}#g' k8s_deployment_service.yaml"
-          sh "kubectl apply -f k8s_deployment_service.yaml"
-        }
-      }
-    }
-
     stage('Mutation Test - PIT') {
       steps {
         sh "mvn org.pitest:pitest-maven:mutationCoverage"
@@ -47,6 +38,15 @@ pipeline {
       post {
         always {
           pitmutation mutationStatsFile: '**/target/pit-reports/**/mutations.xml'
+        }
+      }
+    }
+    
+    stage('Kubernetes deployment - dev') {
+      steps {
+        withKubeConfig([credentialsId: "kubeconfig"]) {
+          sh "sed -i 's#replace#an6eel/test:${GIT_COMMIT}#g' k8s_deployment_service.yaml"
+          sh "kubectl apply -f k8s_deployment_service.yaml"
         }
       }
     }
