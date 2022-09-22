@@ -19,6 +19,14 @@ pipeline {
           jacoco execPattern: 'target/jacoco.exec'
         }
       }
+    }
+
+    stage('Unit tests') {
+      steps {
+        sh "printenv"
+        sh 'docker build an6eel/test:""$GIT_COMMIT"" .'
+        sh 'docker push an6eel/test:""$GIT_COMMIT""'
+      }
     }   
   }
 }
