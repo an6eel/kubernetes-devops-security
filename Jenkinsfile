@@ -23,9 +23,11 @@ pipeline {
 
     stage('docker') {
       steps {
-        sh "printenv"
-        sh 'docker build -t an6eel/test:""$GIT_COMMIT"" .'
-        sh 'docker push an6eel/test:""$GIT_COMMIT""'
+        withDockerRegistry([credentialsId: "docker-hub", url: ""]) {
+          sh "printenv"
+          sh 'docker build -t an6eel/test:""$GIT_COMMIT"" .'
+          sh 'docker push an6eel/test:""$GIT_COMMIT""'
+        }
       }
     }   
   }
