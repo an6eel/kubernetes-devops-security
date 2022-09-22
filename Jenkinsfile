@@ -21,7 +21,7 @@ pipeline {
       }
     }
 
-    stage('Unit tests') {
+    stage('docker') {
       steps {
         sh "printenv"
         sh 'docker build an6eel/test:""$GIT_COMMIT"" .'
