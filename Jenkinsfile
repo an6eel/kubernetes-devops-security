@@ -21,16 +21,6 @@ pipeline {
       }
     }
 
-    stage('docker') {
-      steps {
-        withDockerRegistry([credentialsId: "docker-hub", url: ""]) {
-          sh "printenv"
-          sh 'docker build -t an6eel/test:""$GIT_COMMIT"" .'
-          sh 'docker push an6eel/test:""$GIT_COMMIT""'
-        }
-      }
-    }   
-
     stage('Mutation Test - PIT') {
       steps {
         sh "mvn org.pitest:pitest-maven:mutationCoverage"
@@ -54,6 +44,16 @@ pipeline {
         }
       }
     }
+
+    stage('docker') {
+      steps {
+        withDockerRegistry([credentialsId: "docker-hub", url: ""]) {
+          sh "printenv"
+          sh 'docker build -t an6eel/test:""$GIT_COMMIT"" .'
+          sh 'docker push an6eel/test:""$GIT_COMMIT""'
+        }
+      }
+    }   
 
     stage('Kubernetes deployment - dev') {
       steps {
