@@ -2,4 +2,4 @@ fileignoreconfig:
 - filename: sec_files/file3
   checksum: a4ece0174e3ea4fc02517bf5c831bfbc5c8c2f6f24c151fe6914c67cc4ab90b0
 - filename: Jenkinsfile
-  allowed_patterns: [key]
+  allowed_patterns: [Key]
