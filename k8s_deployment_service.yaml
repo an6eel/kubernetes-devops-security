@@ -15,7 +15,7 @@ spec:
       labels:
         app: devsecops
     spec:
-      serviceAccountName: 
+      serviceAccountName: default
       imagePullSecrets:
       - name: docker-creds
       volumes:
