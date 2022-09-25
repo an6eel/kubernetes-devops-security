@@ -5,7 +5,7 @@ pipeline {
     deploymentName = "devsecops"
     containerName = "devsecops-container"
     serviceName = "devsecops-svc"
-    imageName = "an6eel/numeric-app:${GIT_COMMIT}"
+    imageName = "an6eel/test:${GIT_COMMIT}"
     applicationURL="http://devsecops-demo.eastus.cloudapp.azure.com"
     applicationURI="/increment/99"
   }
@@ -78,6 +78,9 @@ pipeline {
           },
           "Kubesec scan": {
             sh "bash kubesec-scan.sh"
+          },
+          "Trivy scan": {
+             sh "bash trivy-k8s-scan.sh"
           }
         )
          
