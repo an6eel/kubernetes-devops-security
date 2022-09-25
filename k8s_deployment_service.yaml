@@ -17,7 +17,7 @@ spec:
     spec:
       serviceAccountName: default
       imagePullSecrets:
-      - name: docker-creds
+      - name: registry
       volumes:
       - name: vol
         emptyDir: {}
